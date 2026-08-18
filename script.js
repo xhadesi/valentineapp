@@ -23,8 +23,7 @@
     }
   }
 
-  // Soft Chinese Pentatonic Romantic Melody (Guzheng / Bamboo Flute style synthesis)
-  // Pentatonic Scale: C5, D5, E5, G5, A5, C6
+  // Soft Chinese Pentatonic Romantic Melody (Guzheng style synthesis)
   const pentatonicMelody = [
     { note: 523.25, dur: 0.5, pause: 0.6 }, // C5
     { note: 587.33, dur: 0.4, pause: 0.5 }, // D5
@@ -52,7 +51,6 @@
       const now = audioCtx.currentTime;
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
-      
       const osc2 = audioCtx.createOscillator();
       const gain2 = audioCtx.createGain();
 
@@ -62,7 +60,6 @@
       osc2.type = 'sine';
       osc2.frequency.setValueAtTime(freq * 2.01, now);
 
-      // Gentle attack and soft decay
       gain.gain.setValueAtTime(0.001, now);
       gain.gain.linearRampToValueAtTime(volume, now + 0.03);
       gain.gain.exponentialRampToValueAtTime(0.0001, now + dur + 0.3);
@@ -91,7 +88,7 @@
     function playNextMelodyStep() {
       if (!soundEnabled || !bgMusicPlaying) return;
       const noteItem = pentatonicMelody[currentNoteIdx];
-      playGuzhengPluck(noteItem.note, noteItem.dur, 0.05); // Soft romantic volume
+      playGuzhengPluck(noteItem.note, noteItem.dur, 0.05);
 
       currentNoteIdx = (currentNoteIdx + 1) % pentatonicMelody.length;
       bgMusicTimer = setTimeout(playNextMelodyStep, noteItem.pause * 1000);
@@ -171,7 +168,6 @@
     }
   });
 
-  // Autostart music on first user interaction anywhere on screen
   function handleFirstInteraction() {
     initAudio();
     if (soundEnabled && !bgMusicPlaying) {
@@ -185,7 +181,7 @@
   window.addEventListener('touchstart', handleFirstInteraction, { once: true });
   window.addEventListener('click', handleFirstInteraction, { once: true });
 
-  // --- Ambient Canvas Particles (Glowing Hearts & Stardust) ---
+  // --- Ambient Canvas Particles ---
   const canvas = document.getElementById('ambient-canvas');
   const ctx = canvas.getContext('2d');
   let width, height;
@@ -263,6 +259,7 @@
   animateParticles();
 
   // --- Evasion Engine & Mobile Touch Rules ---
+  const playground = document.getElementById('playground');
   const btnYes = document.getElementById('btn-yes');
   const btnNo = document.getElementById('btn-no');
   const noIcon = document.getElementById('no-icon');
@@ -295,8 +292,7 @@
       e.stopPropagation();
     }
     const now = Date.now();
-    // Debounce rapid triggers on mobile touch (90ms)
-    if (now - lastDodgeTime < 90) return;
+    if (now - lastDodgeTime < 70) return;
     lastDodgeTime = now;
 
     initAudio();
@@ -306,7 +302,7 @@
 
     dodgeCount++;
 
-    // Dynamic scaling for YES button (up to 2.4x)
+    // Dynamic scaling for YES button
     yesScale = Math.min(1 + dodgeCount * 0.16, 2.4);
     btnYes.style.transform = `scale(${yesScale})`;
 
@@ -333,26 +329,33 @@
     dodgeHint.textContent = phrase.hint;
     dodgeHint.style.color = '#ff80aa';
 
-    // Move NO Button strictly inside visible viewport
+    // Ensure button is attached directly to document.body so fixed positioning works without card transform clipping
+    if (btnNo.parentElement !== document.body) {
+      document.body.appendChild(btnNo);
+    }
     btnNo.classList.add('evading');
 
-    const btnWidth = btnNo.offsetWidth || 120;
+    const btnWidth = btnNo.offsetWidth || 130;
     const btnHeight = btnNo.offsetHeight || 55;
     
-    // Margins to prevent button from going under notches or screen edges
-    const margin = 20;
-    const maxX = Math.max(margin, window.innerWidth - btnWidth - margin);
-    const maxY = Math.max(margin, window.innerHeight - btnHeight - margin - 30);
+    // Viewport safe margins
+    const paddingX = 24;
+    const paddingY = 24;
+    const screenW = window.innerWidth;
+    const screenH = window.innerHeight;
 
-    const randomX = Math.floor(margin + Math.random() * (maxX - margin));
-    const randomY = Math.floor(margin + Math.random() * (maxY - margin));
+    const maxX = Math.max(paddingX, screenW - btnWidth - paddingX);
+    const maxY = Math.max(paddingY, screenH - btnHeight - paddingY - 30);
+
+    const randomX = Math.floor(paddingX + Math.random() * (maxX - paddingX));
+    const randomY = Math.floor(paddingY + Math.random() * (maxY - paddingY));
 
     btnNo.style.left = `${randomX}px`;
     btnNo.style.top = `${randomY}px`;
-    btnNo.style.transform = `scale(${Math.max(0.78, 1 - dodgeCount * 0.025)}) rotate(${(Math.random() - 0.5) * 18}deg)`;
+    btnNo.style.transform = `scale(${Math.max(0.8, 1 - dodgeCount * 0.02)}) rotate(${(Math.random() - 0.5) * 16}deg)`;
   }
 
-  // Bind mouse, pointer and touch events
+  // Bind all evasion events
   btnNo.addEventListener('mouseenter', dodgeNoButton);
   btnNo.addEventListener('pointerenter', dodgeNoButton);
   btnNo.addEventListener('pointerover', dodgeNoButton);
@@ -366,7 +369,6 @@
     initAudio();
     playVictorySound();
 
-    // Trigger romantic confetti
     if (typeof confetti === 'function') {
       const count = 280;
       const defaults = { origin: { y: 0.7 } };
@@ -384,7 +386,6 @@
       fire(0.1, { spread: 120, startVelocity: 45, colors: ['#ff1475', '#ffffff', '#ff99cc'] });
     }
 
-    // Show celebration modal
     setTimeout(() => {
       celebrationOverlay.classList.remove('hidden');
     }, 350);
@@ -397,6 +398,9 @@
     yesScale = 1;
     btnYes.style.transform = 'scale(1)';
 
+    if (btnNo.parentElement !== playground) {
+      playground.appendChild(btnNo);
+    }
     btnNo.classList.remove('evading');
     btnNo.style.position = '';
     btnNo.style.left = '';
