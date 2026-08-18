@@ -1,0 +1,12 @@
+{
+  "name": "chinese-valentines-card",
+  "version": "1.0.0",
+  "description": "Magical Liquid Glass Valentine's Day Interactive Card (七夕情人节)",
+  "scripts": {
+    "dev": "npx serve .",
+    "start": "npx serve ."
+  },
+  "keywords": ["valentines-day", "qixi-festival", "liquid-glass", "interactive"],
+  "author": "Antigravity",
+  "license": "MIT"
+}

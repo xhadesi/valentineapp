@@ -1,0 +1,721 @@
+/* ==========================================================================
+   LIQUID GLASS VALENTINE'S DAY THEME - CSS DESIGN SYSTEM
+   ========================================================================== */
+
+:root {
+  --primary-pink: #ff2a7a;
+  --hot-pink: #ff0055;
+  --candy-pink: #ff65a3;
+  --soft-rose: #ffe3ee;
+  --deep-wine: #3c0919;
+  --glass-bg: rgba(255, 255, 255, 0.18);
+  --glass-border: rgba(255, 255, 255, 0.45);
+  --glass-specular: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 192, 203, 0.15) 100%);
+  --glass-shadow: 0 20px 50px rgba(220, 20, 90, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.35) inset;
+  --font-cute: 'Fredoka', 'Quicksand', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-chinese: 'ZCOOL KuaiLe', 'Ma Shan Zheng', 'Fredoka', cursive, sans-serif;
+  --font-poetic: 'Ma Shan Zheng', 'ZCOOL KuaiLe', cursive;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+  font-family: var(--font-cute);
+  background: #190510;
+  color: #fff;
+}
+
+/* Dynamic Animated Background Mesh Gradient */
+body {
+  background: radial-gradient(circle at 20% 20%, #4a0d2a 0%, #200412 50%, #0d0107 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Background Canvas for Particle Hearts & Stardust */
+#ambient-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Liquid Glowing Mesh Blobs */
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.65;
+  pointer-events: none;
+  z-index: 0;
+  animation: floatOrb 12s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.orb-1 {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, #ff1475 0%, #ff529a 60%, transparent 80%);
+  top: 10%;
+  left: 15%;
+  animation-duration: 14s;
+}
+
+.orb-2 {
+  width: 440px;
+  height: 440px;
+  background: radial-gradient(circle, #99004d 0%, #e60067 50%, transparent 80%);
+  bottom: 10%;
+  right: 15%;
+  animation-duration: 18s;
+  animation-delay: -5s;
+}
+
+.orb-3 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, #ff8da1 0%, #ff3377 60%, transparent 80%);
+  top: 50%;
+  left: 60%;
+  animation-duration: 10s;
+  animation-delay: -2s;
+}
+
+.orb-4 {
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, #ff719a 0%, #850638 70%, transparent 85%);
+  bottom: 25%;
+  left: 20%;
+  animation-duration: 16s;
+}
+
+@keyframes floatOrb {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate(40px, -60px) scale(1.15) rotate(90deg); }
+  100% { transform: translate(-30px, 40px) scale(0.9) rotate(180deg); }
+}
+
+/* Sound Pill Button */
+.sound-pill-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 8px 16px;
+  border-radius: 999px;
+  color: #fff;
+  font-family: var(--font-cute);
+  font-weight: 600;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.sound-pill-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Main Viewport Container */
+.scene-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 540px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ==========================================================================
+   LIQUID GLASS CARD
+   ========================================================================== */
+
+.liquid-card {
+  position: relative;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-radius: 36px;
+  padding: 40px 32px 32px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 
+    0 25px 50px -12px rgba(230, 0, 92, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.25) inset,
+    inset 0 1px 1px rgba(255, 255, 255, 0.7);
+  overflow: visible;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: cardEntrance 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes cardEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(35px) scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.glass-reflection {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  border-radius: 36px 36px 120px 120px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.02) 100%);
+  pointer-events: none;
+}
+
+/* Cute Mascot / Character Area */
+.avatar-wrapper {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.cute-creature {
+  position: relative;
+  width: 110px;
+  height: 100px;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.cute-creature:hover {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+/* CSS Illustrated Blushing Heart */
+.blushing-heart {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: heartFloat 3.5s ease-in-out infinite;
+}
+
+@keyframes heartFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(3deg); }
+}
+
+.heart-shape {
+  position: relative;
+  width: 80px;
+  height: 72px;
+  background: linear-gradient(135deg, #ff4081 0%, #ff0055 70%, #d80040 100%);
+  border-radius: 40px 40px 20px 20px;
+  transform: rotate(0deg);
+  box-shadow: 0 10px 25px rgba(255, 0, 85, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.6);
+}
+
+.heart-shape::before,
+.heart-shape::after {
+  content: "";
+  position: absolute;
+  top: -24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: inherit;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.6);
+}
+
+.heart-shape::before { left: 0px; }
+.heart-shape::after { right: 0px; }
+
+/* Cute Eyes & Blush */
+.eye {
+  position: absolute;
+  top: 18px;
+  width: 10px;
+  height: 14px;
+  background: #24020c;
+  border-radius: 50%;
+  z-index: 5;
+  animation: blinkEyes 4s infinite;
+}
+
+.left-eye { left: 16px; }
+.right-eye { right: 16px; }
+
+.pupil {
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+}
+
+.sparkle {
+  width: 2px;
+  height: 2px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+}
+
+@keyframes blinkEyes {
+  0%, 96%, 100% { transform: scaleY(1); }
+  98% { transform: scaleY(0.1); }
+}
+
+.blush {
+  position: absolute;
+  top: 30px;
+  width: 14px;
+  height: 8px;
+  background: rgba(255, 179, 198, 0.85);
+  border-radius: 50%;
+  filter: blur(1px);
+  z-index: 4;
+}
+.left-blush { left: 8px; }
+.right-blush { right: 8px; }
+
+.mouth {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 6px;
+  border-bottom: 3px solid #24020c;
+  border-radius: 0 0 10px 10px;
+  z-index: 5;
+  transition: all 0.2s ease;
+}
+
+.halo-wings {
+  position: absolute;
+  font-size: 24px;
+  top: 15px;
+  z-index: 2;
+  filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.4));
+  animation: wingFlap 1.2s ease-in-out infinite alternate;
+}
+
+.left-wing { left: -22px; transform-origin: right center; }
+.right-wing { right: -22px; transform: scaleX(-1); transform-origin: left center; }
+
+@keyframes wingFlap {
+  0% { transform: rotate(-10deg) translateY(0); }
+  100% { transform: rotate(15deg) translateY(-5px); }
+}
+
+.sparkle-badge {
+  margin-top: 14px;
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #ffdeea;
+  text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+}
+
+/* ==========================================================================
+   TEXT CONTENT & BILINGUAL TYPOGRAPHY
+   ========================================================================== */
+
+.badge-tag {
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ffe6f0;
+  background: linear-gradient(90deg, rgba(255, 42, 122, 0.3) 0%, rgba(255, 105, 180, 0.4) 100%);
+  padding: 6px 18px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  margin-bottom: 16px;
+  box-shadow: 0 4px 15px rgba(255, 0, 85, 0.2);
+}
+
+.main-title {
+  margin-bottom: 12px;
+}
+
+.main-title .eng-text {
+  display: block;
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.15;
+  background: linear-gradient(135deg, #ffffff 20%, #ffb3d1 70%, #ff80aa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 10px rgba(255, 0, 100, 0.35));
+}
+
+.main-title .chn-text {
+  display: block;
+  font-family: var(--font-chinese);
+  font-size: 1.9rem;
+  margin-top: 6px;
+  color: #fff0f6;
+  letter-spacing: 1px;
+  text-shadow: 0 0 15px rgba(255, 105, 180, 0.8), 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.sub-question {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.question-eng {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffe6f0;
+}
+
+.question-chn {
+  font-family: var(--font-chinese);
+  font-size: 1.15rem;
+  color: #ffb8d6;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   BUTTONS PLAYGROUND & DYNAMIC EVASION
+   ========================================================================== */
+
+.buttons-playground {
+  position: relative;
+  margin-top: 36px;
+  min-height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  width: 100%;
+}
+
+.btn-action {
+  position: relative;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: var(--font-cute);
+  border-radius: 28px;
+  padding: 14px 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, background 0.3s;
+  z-index: 20;
+}
+
+.btn-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-labels {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  line-height: 1.1;
+}
+
+.btn-main-label {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.btn-sub-label {
+  font-family: var(--font-chinese);
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+/* YES BUTTON: Luscious Liquid Pink Glowing */
+.btn-yes {
+  background: linear-gradient(135deg, #ff0077 0%, #ff4d94 50%, #ff0055 100%);
+  color: #fff;
+  box-shadow: 
+    0 10px 25px rgba(255, 0, 100, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.4) inset,
+    0 0 25px rgba(255, 77, 148, 0.6);
+  transform-origin: center center;
+  animation: gentlePulse 2s infinite ease-in-out;
+}
+
+@keyframes gentlePulse {
+  0%, 100% {
+    box-shadow: 0 10px 25px rgba(255, 0, 100, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.4) inset, 0 0 20px rgba(255, 77, 148, 0.6);
+  }
+  50% {
+    box-shadow: 0 15px 35px rgba(255, 0, 100, 0.7), 0 0 0 2px rgba(255, 255, 255, 0.7) inset, 0 0 35px rgba(255, 77, 148, 0.9);
+  }
+}
+
+.btn-yes:hover {
+  transform: scale(1.08) translateY(-2px);
+  background: linear-gradient(135deg, #ff1a8c 0%, #ff66aa 50%, #ff1a66 100%);
+}
+
+.btn-yes:active {
+  transform: scale(0.96);
+}
+
+.btn-shimmer {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: skewX(-20deg);
+  animation: shimmerSweep 3.5s infinite;
+}
+
+@keyframes shimmerSweep {
+  0% { left: -100%; }
+  30%, 100% { left: 200%; }
+}
+
+/* NO BUTTON: Glassmorphic Evasive Button */
+.btn-no {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #ffe6ef;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28), opacity 0.2s ease, top 0.25s ease, left 0.25s ease;
+  white-space: nowrap;
+}
+
+.btn-no.evading {
+  position: fixed !important;
+  z-index: 100 !important;
+}
+
+/* Dodge Remark Hint */
+.hint-container {
+  margin-top: 26px;
+  min-height: 24px;
+}
+
+.dodge-hint {
+  font-size: 0.9rem;
+  color: #ffccd9;
+  font-weight: 500;
+  opacity: 0.85;
+  transition: all 0.3s ease;
+}
+
+/* ==========================================================================
+   CELEBRATION OVERLAY & MODAL
+   ========================================================================== */
+
+.celebration-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 2, 8, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.celebration-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.celebration-glass-card {
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(35px) saturate(200%);
+  -webkit-backdrop-filter: blur(35px) saturate(200%);
+  border-radius: 40px;
+  padding: 45px 36px;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 
+    0 30px 70px rgba(255, 0, 100, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.3) inset;
+  animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.6) translateY(50px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.fireworks-badge {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #ffdeeb;
+  background: rgba(255, 0, 100, 0.35);
+  border-radius: 20px;
+  padding: 6px 16px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.big-romantic-anim {
+  font-size: 4.5rem;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 10px 20px rgba(255, 0, 100, 0.4));
+}
+
+.pulse-giant-heart {
+  display: inline-block;
+  animation: heartThrob 1.2s infinite ease-in-out;
+}
+
+@keyframes heartThrob {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.18); }
+}
+
+.celebration-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #ffffff 0%, #ff99bb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.celebration-quote {
+  font-family: var(--font-poetic);
+  font-size: 1.45rem;
+  line-height: 1.5;
+  color: #ffe6f0;
+  margin-bottom: 18px;
+  text-shadow: 0 0 12px rgba(255, 105, 180, 0.8);
+}
+
+.quote-trans {
+  display: block;
+  font-family: var(--font-cute);
+  font-size: 0.95rem;
+  color: #ffb8d2;
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+.love-pledge {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 14px;
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.pledge-item {
+  font-size: 0.9rem;
+  color: #fff;
+  font-weight: 500;
+}
+
+.btn-pill-relaunch {
+  background: linear-gradient(135deg, #ff0066 0%, #ff4d88 100%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 30px;
+  font-family: var(--font-cute);
+  font-weight: 700;
+  font-size: 1.05rem;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(255, 0, 100, 0.4);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-pill-relaunch:hover {
+  transform: scale(1.06);
+  box-shadow: 0 15px 35px rgba(255, 0, 100, 0.6);
+}
+
+/* ==========================================================================
+   MOBILE & RESPONSIVENESS
+   ========================================================================== */
+
+@media (max-width: 480px) {
+  .liquid-card {
+    padding: 30px 20px 24px;
+    border-radius: 28px;
+  }
+  .main-title .eng-text {
+    font-size: 1.8rem;
+  }
+  .main-title .chn-text {
+    font-size: 1.55rem;
+  }
+  .sub-question .question-eng {
+    font-size: 1.05rem;
+  }
+  .sub-question .question-chn {
+    font-size: 0.95rem;
+  }
+  .btn-action {
+    padding: 12px 20px;
+  }
+  .btn-main-label {
+    font-size: 1.1rem;
+  }
+  .celebration-glass-card {
+    padding: 32px 22px;
+    border-radius: 28px;
+  }
+}

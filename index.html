@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Happy Chinese Valentine's Day! 💕 七夕情人节快乐</title>
+  <meta name="description" content="A magical liquid-glass Valentine's Day love confession interactive card.">
+  
+  <!-- Google Fonts: Modern & Cute (English + Chinese) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Canvas-confetti for celebration -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Animated Interactive Ambient Canvas Background -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Floating Liquid Glowing Blobs for Glass Refraction -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
+  <div class="glow-orb orb-4"></div>
+
+  <!-- Sound Toggle Control -->
+  <button id="sound-toggle" class="sound-pill-btn" aria-label="Toggle Sound">
+    <span id="sound-icon">🔊</span>
+    <span id="sound-text">Sound ON</span>
+  </button>
+
+  <!-- Main Experience Wrapper -->
+  <main class="scene-container">
+    
+    <!-- Liquid Glass Card -->
+    <div class="liquid-card" id="main-card">
+      <div class="glass-reflection"></div>
+      <div class="glass-specular"></div>
+
+      <!-- Cute Animated Character / Floating Heart Centerpiece -->
+      <div class="avatar-wrapper">
+        <div class="cute-creature" id="creature">
+          <div class="blushing-heart">
+            <div class="heart-shape">
+              <div class="eye left-eye"><div class="pupil"></div><div class="sparkle"></div></div>
+              <div class="eye right-eye"><div class="pupil"></div><div class="sparkle"></div></div>
+              <div class="mouth" id="creature-mouth"></div>
+              <div class="blush left-blush"></div>
+              <div class="blush right-blush"></div>
+            </div>
+            <div class="halo-wings left-wing">🕊️</div>
+            <div class="halo-wings right-wing">🕊️</div>
+          </div>
+        </div>
+        <div class="sparkle-badge">✨ 七夕 Qixi Festival ✨</div>
+      </div>
+
+      <!-- Bilingual Romantic Headings -->
+      <div class="text-content">
+        <div class="badge-tag">💖 It's Valentine's Day • 今天是七夕节 💖</div>
+        <h1 class="main-title">
+          <span class="eng-text">I love you so much!</span>
+          <span class="chn-text">我超级超级爱你！</span>
+        </h1>
+        <p class="sub-question">
+          <span class="question-eng">Do you love me too? 🥺👉👈</span>
+          <span class="question-chn">你也会一直爱我吗？</span>
+        </p>
+      </div>
+
+      <!-- Action Buttons Area -->
+      <div class="buttons-playground" id="playground">
+        <button id="btn-yes" class="btn-action btn-yes" type="button">
+          <span class="btn-shimmer"></span>
+          <span class="btn-content">
+            <span class="btn-icon">💖</span>
+            <span class="btn-labels">
+              <span class="btn-main-label">YES !</span>
+              <span class="btn-sub-label">当然爱啦！</span>
+            </span>
+          </span>
+        </button>
+
+        <button id="btn-no" class="btn-action btn-no" type="button">
+          <span class="btn-content">
+            <span class="btn-icon" id="no-icon">💔</span>
+            <span class="btn-labels">
+              <span class="btn-main-label" id="no-main-label">NO</span>
+              <span class="btn-sub-label" id="no-sub-label">才不要</span>
+            </span>
+          </span>
+        </button>
+      </div>
+
+      <!-- Fun counter / dodge remarks -->
+      <div class="hint-container">
+        <p id="dodge-hint" class="dodge-hint">Tip: Try clicking "NO" if you dare~ 😏</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Celebration Modal (When YES is clicked) -->
+  <div id="celebration-overlay" class="celebration-overlay hidden">
+    <div class="celebration-glass-card">
+      <div class="fireworks-badge">🎆 YAAAY! FOREVER TOGETHER 🎆</div>
+      <div class="big-romantic-anim">
+        <span class="pulse-giant-heart">👩‍❤️‍💋‍👨</span>
+      </div>
+      <h2 class="celebration-title">
+        I KNEW IT! ❤️ 我就知道！
+      </h2>
+      <p class="celebration-quote">
+        “两情若是久长时，又岂在朝朝暮暮。”<br>
+        <span class="quote-trans">Happy Chinese Valentine's Day! You make my heart melt every single day. ✨</span>
+      </p>
+      <div class="love-pledge">
+        <div class="pledge-item">🔒 Locked in my heart forever</div>
+        <div class="pledge-item">🌟 Always & unconditionally yours</div>
+      </div>
+      <div class="modal-buttons">
+        <button id="btn-replay" class="btn-pill-relaunch">
+          <span>💌 Share the Love Again</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
