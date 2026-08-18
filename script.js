@@ -211,6 +211,14 @@
       this.isStar = Math.random() > 0.7;
     }
     update() {
+      if (this.isCelebration) {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.speedY += (this.gravity || 0.25);
+        this.opacity -= 0.008;
+        this.rotation += this.rotSpeed * 2;
+        return;
+      }
       this.y -= this.speedY;
       this.x += this.speedX + Math.sin(this.y * 0.012) * 0.6;
       this.rotation += this.rotSpeed;
@@ -364,27 +372,29 @@
   btnNo.addEventListener('pointerdown', dodgeNoButton);
   btnNo.addEventListener('click', dodgeNoButton);
 
+  // --- Native Self-Contained Celebration Confetti Engine ---
+  function triggerCelebrationConfetti() {
+    const colors = ['#ff0077', '#ff66aa', '#ffffff', '#ffd700', '#ff1493', '#ff0055', '#ff99cc'];
+    for (let i = 0; i < 120; i++) {
+      const p = new HeartParticle();
+      p.x = width / 2 + (Math.random() - 0.5) * 200;
+      p.y = height * 0.65;
+      p.speedY = -(Math.random() * 12 + 6);
+      p.speedX = (Math.random() - 0.5) * 14;
+      p.size = Math.random() * 22 + 10;
+      p.opacity = 1;
+      p.color = colors[Math.floor(Math.random() * colors.length)];
+      p.isCelebration = true;
+      p.gravity = 0.25;
+      particles.push(p);
+    }
+  }
+
   // --- YES Button Click Celebration ---
   btnYes.addEventListener('click', () => {
     initAudio();
     playVictorySound();
-
-    if (typeof confetti === 'function') {
-      const count = 280;
-      const defaults = { origin: { y: 0.7 } };
-
-      function fire(particleRatio, opts) {
-        confetti(Object.assign({}, defaults, opts, {
-          particleCount: Math.floor(count * particleRatio)
-        }));
-      }
-
-      fire(0.25, { spread: 26, startVelocity: 55, colors: ['#ff0077', '#ff66aa', '#ffffff', '#ffd700'] });
-      fire(0.2, { spread: 60, colors: ['#ff1493', '#ff69b4', '#ffe4e1'] });
-      fire(0.35, { spread: 100, decay: 0.91, scalar: 1.2 });
-      fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, colors: ['#ff0055', '#ffb6c1', '#ffffff'] });
-      fire(0.1, { spread: 120, startVelocity: 45, colors: ['#ff1475', '#ffffff', '#ff99cc'] });
-    }
+    triggerCelebrationConfetti();
 
     setTimeout(() => {
       celebrationOverlay.classList.remove('hidden');
